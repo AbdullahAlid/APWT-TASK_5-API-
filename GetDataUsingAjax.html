@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#Students {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#Students td, #Students th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#Students tr:nth-child(even){background-color: #f2f2f2;}
+
+#Students tr:hover {background-color: #ddd;}
+
+#Students th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+</style>
+</head>
+<body onload="loadStudents()">
+
+<h1>Students Table</h1>
+
+<table id="Students">
+      <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>LisenceNo</th>
+      <th>Address</th>
+      <th>Contact</th>
+      <th>Email</th>
+      <th>Fee</th>
+      <th>Due</th>
+      <th>Balance</th>
+      </tr>
+      <tr>
+            <td id="id"></td>
+            <td id="name"></td>
+            <td id="lisenceNo"></td>
+            <td id="add"></td>
+            <td id="phone"></td>
+            <td id="email"></td>
+            <td id="fee"></td>
+            <td id="due"></td>
+            <td id="balance"></td>
+            
+      </tr>
+      
+      
+</table>
+<script>
+      function loadStudents(){
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                  if(this.readyState==4 && this.status==200){
+
+                        var object = JSON.parse(this.responseText);
+                        var count = object.keys(object).length;
+
+                              document.getElementById('id').innerHTML = object[0].id;
+                              document.getElementById('name').innerHTML = object[0].name;
+                              document.getElementById('lisenceNo').innerHTML = object[0].licenseNo;
+                              document.getElementById('add').innerHTML = object[0].address; 
+                              document.getElementById('phone').innerHTML = object[0].phone; 
+                              document.getElementById('email').innerHTML = object[0].email;
+                              document.getElementById('fee').innerHTML = object[0].fee;
+                              document.getElementById('due').innerHTML = object[0].due;
+                              document.getElementById('balance').innerHTML = object[0].balance;  
+                  }
+            };
+            xhttp.open('GET', "http://127.0.0.1:8000/api/company");
+            xhttp.send();
+      }
+</script>
+
+</body>
+</html>
